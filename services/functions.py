@@ -4,7 +4,7 @@ from conections.mongo import conection_mongo
 
 def create_publication(user_id, text, multimedia=None):
     db = conection_mongo()
-    publications = db["UserPublication"]
+    publications = db["Publications"]
 
     if multimedia:
         image_base64 = multimedia.get("image_base64")

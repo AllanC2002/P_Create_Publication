@@ -1,6 +1,5 @@
 import requests
 
-# Primero loguear para obtener token
 login_data = {
     "User_mail": "ascorread1",
     "password": "1234"
