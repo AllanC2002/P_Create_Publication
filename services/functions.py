@@ -1,11 +1,14 @@
 import base64
 from datetime import datetime
+from bson import ObjectId
 from conections.mongo import conection_mongo
+from conections.redis import conection_redis
 
 def create_publication(user_id, text, multimedia=None):
     db = conection_mongo()
     publications = db["Publications"]
 
+    # Validar y preparar la multimedia (si existe)
     if multimedia:
         image_base64 = multimedia.get("image_base64")
         content_type = multimedia.get("content_type")
@@ -19,6 +22,7 @@ def create_publication(user_id, text, multimedia=None):
         image_base64 = None
         content_type = None
 
+    # Crear documento
     publication = {
         "Id_user": user_id,
         "Text": text,
@@ -26,13 +30,32 @@ def create_publication(user_id, text, multimedia=None):
             "image_base64": image_base64,
             "content_type": content_type
         } if image_base64 else None,
-        "Status": 1,  
+        "Status": 1,
         "Datepublish": datetime.utcnow(),
         "Likes": []
     }
 
     try:
+        # Guardar en MongoDB
         result = publications.insert_one(publication)
-        return {"message": "Publication created", "publication_id": str(result.inserted_id)}, 201
+        publication_id = str(result.inserted_id)
+
+        # Emitir evento a Redis Stream
+        try:
+            r = conection_redis()
+            r.xadd("stream_user_publications", {
+                "user_id": str(user_id),
+                "publication_id": publication_id,
+                "timestamp": datetime.utcnow().isoformat()
+            })
+            print("Success to publish to redis")
+        except Exception as e:
+            print("Error to publish to redis:", e)
+
+        return {
+            "message": "Publication created",
+            "publication_id": publication_id
+        }, 201
+
     except Exception as e:
         return {"error": f"Database error: {str(e)}"}, 500

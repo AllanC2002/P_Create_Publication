@@ -21,7 +21,7 @@ headers = {
 base64_img = "iVBORw0KGgoAAAANSUhEU"
 
 publication_data = {
-    "Text": "Text publication whitout a image"
+    "Text": "Publication type producer because we try to use ebvent drive to this microservice"
     #"Multimedia": {
         #"image_base64": base64_img,
         #"content_type": "image/png"
