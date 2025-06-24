@@ -37,4 +37,4 @@ def create_publication_route():
     return jsonify(response), code
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8081, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
