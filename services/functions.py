@@ -8,7 +8,6 @@ def create_publication(user_id, text, multimedia=None):
     db = conection_mongo()
     publications = db["Publications"]
 
-    # Validar y preparar la multimedia (si existe)
     if multimedia:
         image_base64 = multimedia.get("image_base64")
         content_type = multimedia.get("content_type")
@@ -22,7 +21,6 @@ def create_publication(user_id, text, multimedia=None):
         image_base64 = None
         content_type = None
 
-    # Crear documento
     publication = {
         "Id_user": user_id,
         "Text": text,
@@ -36,11 +34,10 @@ def create_publication(user_id, text, multimedia=None):
     }
 
     try:
-        # Guardar en MongoDB
         result = publications.insert_one(publication)
         publication_id = str(result.inserted_id)
 
-        # Emitir evento a Redis Stream
+        # Event
         try:
             r = conection_redis()
             r.xadd("stream_user_publications", {
