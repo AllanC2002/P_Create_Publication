@@ -32,8 +32,10 @@ def create_publication_route():
         return jsonify({"error": "Text field is required"}), 400
 
     text = data["Text"]
-    multimedia = data.get("Multimedia")  
-    response, code = create_publication(user_id, text, multimedia)
+    multimedia = data.get("Multimedia")  # it has optional multimedia data
+
+    # Pass the user_id, text, multimedia, and token to the service function
+    response, code = create_publication(user_id, text, multimedia, token)
     return jsonify(response), code
 
 if __name__ == "__main__":

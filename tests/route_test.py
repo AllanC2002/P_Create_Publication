@@ -1,7 +1,7 @@
 import requests
 
 login_data = {
-    "User_mail": "allan",
+    "User_mail": "allan2",
     "password": "1234"
 }
 
@@ -21,14 +21,14 @@ headers = {
 base64_img = "iVBORw0KGgoAAAANSUhEU"
 
 publication_data = {
-    "Text": "Publication"
+    "Text": "Consumer succesfolly created a publication but only with text",
     #"Multimedia": {
         #"image_base64": base64_img,
         #"content_type": "image/png"
     #}
 }
-
-response = requests.post("http://35.173.89.233:8080/create-publication", json=publication_data, headers=headers)
+response = requests.post("http://localhost:8080/create-publication", json=publication_data, headers=headers)
+#response = requests.post("http://35.173.89.233:8080/create-publication", json=publication_data, headers=headers)
 print("Status:", response.status_code)
 print("Response:", response.json())
 
