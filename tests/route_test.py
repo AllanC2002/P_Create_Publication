@@ -21,7 +21,7 @@ headers = {
 base64_img = "iVBORw0KGgoAAAANSUhEU"
 
 publication_data = {
-    "Text": "Consumer succesfolly created a publication but only with text",
+    "Text": "Consumer succesfolly created a publication but only with text by the front",
     #"Multimedia": {
         #"image_base64": base64_img,
         #"content_type": "image/png"
