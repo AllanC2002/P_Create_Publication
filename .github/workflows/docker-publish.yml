@@ -94,7 +94,7 @@ jobs:
               -e MONGO_USER=${{ secrets.MONGO_USER }} \
               -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
               -e MONGO_DB=${{ secrets.MONGO_DB }} \
-              -e REDIS_HOSTIP=${{ secrets.REDIS_HOSTIP }} \
+              -e REDIS_HOSTIP=${{ secrets.REDIS_HOSTIP_PROD }} \
               -e REDIS_PORT=${{ secrets.REDIS_PORT }} \
               -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
               -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
